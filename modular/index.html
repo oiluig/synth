@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODULAR</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-emerald-100">
+    <nav class="container mx-auto mb-6 mt-2">
+        <h1 class="font-mono text-3xl uppercase">modular</h1>
+    </nav>
+    <main class="container mx-auto grid grid-cols-4 bg-teal-200">
+        <div id="wave" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">wave</div>
+            <div>
+                <label for="frequency" class="font-bold font-mono text-xs">type</label><br>
+                <input type="radio" class="mr-2" name="wave_type" value="sine" checked>sine
+                <input type="radio" class="mr-2" name="wave_type" value="square">square
+                <input type="radio" class="mr-2" name="wave_type" value="sawtooth">saw
+                <input type="radio" class="mr-2" name="wave_type" value="triangle">triangle
+            </div>
+            <div>
+                <label for="frequency" class="font-bold font-mono text-xs">freq</label><br>
+                <input type="number" class="frequency bg-teal-200" value=440>
+            </div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="oscillator"></div>
+                    <p>out</p>
+                </div>
+                <div class="flex flex-col mr-3">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="frequency"></div>
+                    <p>freq</p>
+                </div>
+                <div class="flex flex-col">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="gain"></div>
+                    <p>gain</p>
+                </div>
+            </div>
+            
+        </div>
+        <div id="lfo" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">lfo</div>
+            <div>
+                <label for="frequency" class="font-bold font-mono text-xs">type</label><br>
+                <input type="radio" class="mr-2" name="lfo_type" value="sine" checked>sine
+                <input type="radio" class="mr-2" name="lfo_type" value="square">square
+                <input type="radio" class="mr-2" name="lfo_type" value="sawtooth">saw
+                <input type="radio" class="mr-2" name="lfo_type" value="triangle">triangle
+            </div>
+            <div>
+                <label for="frequency" class="font-bold font-mono text-xs">freq</label><br>
+                <input type="number" class="frequency bg-teal-200" value=2>
+            </div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="gain"></div>
+                    <p>in</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="gain"></div>
+                    <p>out</p>
+                </div>
+            </div>
+        </div>
+        <div id="vca" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">vca</div>
+            <div>
+                <label for="gain" class="font-bold font-mono text-xs">gain</label><br>
+                <input type="number" class="gain bg-teal-200" value=0>
+            </div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="vca"></div>
+                    <p>in</p>
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="vca"></div>
+                    <p>out</p>  
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="gain"></div>
+                    <p>ctrl</p>  
+                </div>
+            </div>
+        </div>
+        <div id="output" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">output</div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="destination"></div>
+                    <p>in</p>
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack"></div>  
+                </div>
+            </div>
+        </div>
+        <div id="sequencer" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">sequencer</div>
+            <div class="mb-2 flex">
+                <div class="mr-3">
+                    <label for="controls" class="font-bold font-mono text-xs">controls</label><br>
+                    <input type="checkbox" class="play"> play
+                </div>
+                <div>
+                    <label for="tempo" class="font-bold font-mono text-xs">tempo</label><br>
+                    <input type="number" value="60" class="bg-teal-200 tempo">
+                </div>
+            </div>
+            <div class="grid grid-cols-8 schedule">
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>1</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>2</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>3</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>4</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>5</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>6</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>7</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>8</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>9</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>10</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>11</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>12</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>13</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>14</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>15</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full border-4 border-black beat" data-node="filter"></div>
+                    <p>16</p>
+                </div>
+            </div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="clock"></div>
+                    <p>clock</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="output"></div>
+                    <p>out</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack"></div>
+                    <p>out</p>
+                </div>
+            </div>
+        </div>
+        <div id="filter" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">filter</div>
+            <div>
+                <label for="frequency" class="font-bold font-mono text-xs">type</label><br>
+                <select name="filter_type" class="bg-teal-200" id="filter_type">
+                    <option value="lowpass">lowpass</option>
+                    <option value="highpass">highpass</option>
+                    <option value="bandpass">bandpass</option>
+                    <option value="lowshelf">lowshelf</option>
+                    <option value="highshelf">highshelf</option>
+                    <option value="peaking">peaking</option>
+                    <option value="notch">notch</option>
+                    <option value="allpass">allpass</option>
+                </select>
+            </div>
+            <div class="flex">
+                <div class="mr-3">
+                    <label for="q" class="font-bold font-mono text-xs">q</label><br>
+                    <input type="number" class="q bg-teal-200 w-8" value=2>
+                </div>
+                <div class="mr-3">
+                    <label for="frequency" class="font-bold font-mono text-xs">freq</label><br>
+                    <input type="number" class="frequency bg-teal-200 w-8" value=2>
+                </div>
+                <div>
+                    <label for="gain" class="font-bold font-mono text-xs">gain</label><br>
+                    <input type="number" class="gain bg-teal-200 w-8" value=1>
+                </div>
+            </div>            
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="filter"></div>
+                    <p>in</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="filter"></div>
+                    <p>out</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="Q"></div>
+                    <p>Q</p>
+                </div>
+                <div class="flex flex-col mr-3 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="frequency"></div>
+                    <p>freq</p>
+                </div>
+                <div class="flex flex-col">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="gain"></div>
+                    <p>gain</p>
+                </div>
+            </div>
+        </div>
+        <div id="noise" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">noise</div>
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="white"></div>
+                    <p>white</p>
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="pink"></div>
+                    <p>pink</p>
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="brown"></div>
+                    <p>brown</p>
+                </div>
+            </div>
+        </div>
+        <div id="env" class="border-4 border-black h-72 max-w-md p-4 relative">
+            <div class="font-mono uppercase">env</div>
+            <div>
+                <button class="trigger border-2 border-black px-2 py-0.5 mr-3 text-xs font-mono uppercase hover:bg-black hover:text-teal-200">trigger</button>
+            </div>
+            <div class="grid grid-cols-2">
+                <div>
+                    <label for="attack" class="font-bold font-mono text-xs">attack</label><br>
+                    <input type="number" class="attack bg-teal-200 w-12" step=0.1 value=1>
+                </div>
+                <div>
+                    <label for="decay" class="font-bold font-mono text-xs">decay</label><br>
+                    <input type="number" class="decay bg-teal-200 w-12" step=0.1 value=0.7>
+                </div>
+                <div>
+                    <label for="sustain" class="font-bold font-mono text-xs">sustain</label><br>
+                    <input type="number" class="sustain bg-teal-200 w-12" step=0.1 value=0.5>
+                </div>
+                <div>
+                    <label for="release" class="font-bold font-mono text-xs">release</label><br>
+                    <input type="number" class="release bg-teal-200 w-12" step=0.1 value=0.3>
+                </div>
+            </div>    
+            <div class="flex absolute bottom-2">
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="output"></div>
+                    <p>out</p>
+                </div>
+                <div class="flex flex-col mr-2 items-center">
+                    <div class="bg-black h-8 w-8 rounded-full jack" data-node="trigger"></div> 
+                    <p>trig</p> 
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="container mx-auto pt-3">
+        <div class="float-right">
+            <button class="border-4 border-black px-3 py-1 mr-3 font-mono uppercase hover:bg-black hover:text-teal-200">load</button>
+            <button class="border-4 border-black px-3 py-1 font-mono uppercase hover:bg-black hover:text-teal-200">save</button>
+        </div>
+    </footer>
+    <script src="components/wave.js"></script>
+    <script src="components/lfo.js"></script>
+    <script src="components/noise.js"></script>
+    <script src="components/filter.js"></script>
+    <script src="components/vca.js"></script>
+    <script src="components/sequencer.js"></script>
+    <script src="components/env.js"></script>
+    <script>
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        var audioCtx = new AudioContext();
+
+        var cables = [];
+
+        let cableTo = {};
+
+        let modules = {
+            wave: new Wave(audioCtx, document), 
+            lfo: new Lfo(audioCtx, document),
+            noise: new Noise(audioCtx, document),
+            filter: new Filter(audioCtx, document),
+            vca: new VCA(audioCtx, document),
+            sequencer: new Sequencer(audioCtx, document),
+            env: new Env(audioCtx, document),
+            output: audioCtx
+        }
+
+        document.body.onload = () => {
+            document.body.onclick = () => {
+                if (audioCtx.state === "suspended") {
+                    audioCtx.resume();
+                }
+            }
+        }
+
+        function random_bg_color(element) {
+            var x = Math.floor(Math.random() * 256);
+            var y = Math.floor(Math.random() * 256);
+            var z = Math.floor(Math.random() * 256);
+            var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+            //console.log(bgColor);
+            if(cableTo && cableTo.a) {
+                cableTo.b = element;
+                element.style.background = cableTo.color;
+                cables.push(cableTo);
+                connectCable(cableTo);
+                cableTo = {};
+                return;
+            }
+            
+            cableTo.a = element;
+            element.style.background = bgColor;
+            cableTo.color = bgColor;
+        }
+
+        function configJack(event) {
+            if(!(cableTo.a && cableTo.b) && event.srcElement.classList.contains('bg-black')) {
+                event.srcElement.classList.remove('bg-black');
+                random_bg_color(event.srcElement);            
+            } else {
+                let cableToIndex = cables.findIndex(x => x.a == event.srcElement || x.b == event.srcElement);
+                if(cableToIndex > -1) {
+                    cableTo = cables[cableToIndex];
+                    cables.splice(cableToIndex, 1);
+                }
+                event.srcElement.style.removeProperty('background');
+                event.srcElement.classList.add('bg-black');
+                disconnectCable(cableTo);
+                (cableTo.a == event.srcElement) ? cableTo.a = null : cableTo.b = null;
+            }
+            //connectCables();
+        }
+
+        var jacks = document.getElementsByClassName('jack');
+        
+        Array.from(jacks).forEach(function(element) {
+            element.addEventListener('click', configJack);
+        });
+
+        function connectCables() {
+            for(const cable of cables) {
+                let a = cable.a.closest('main > div').id;
+                let b = cable.b.closest('main > div').id;
+                modules[a].connect(modules[b]);
+                modules[a].start();
+            }
+        }
+
+        function connectCable(cable) {
+            let a = cable.a.closest('main > div').id;
+            let b = cable.b.closest('main > div').id;
+            let node_a = cable.a.getAttribute('data-node');
+            let node_b = cable.b.getAttribute('data-node');
+            
+            // https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect
+            modules[a][node_a].connect(modules[b][node_b]);
+        }
+
+        function disconnectCable(cable) {
+            let a = cable.a.closest('main > div').id;
+            let node = cable.a.getAttribute('data-node');
+            modules[a][node].disconnect();
+        }
+
+    </script>
+</body>
+</html>
